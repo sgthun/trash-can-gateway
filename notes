@@ -1,0 +1,10 @@
+docker build -t svr:b .
+docker build -t svr:a .
+docker run -d --name svra1 svr:a
+docker run -d --name svrb1 svr:b
+docker container inspect svra1 | grep -i apaddress
+docker container inspect svrb1 | grep -i apaddress
+# add these IP's into the default.config in apigw
+
+docker build -t apigw:v1.0 .
+docker container run -d -p 80:80 apigw:v1.0
